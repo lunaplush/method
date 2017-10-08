@@ -16,7 +16,7 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 #%%
 #data prepare
-os.chdir("c:\\Luna\\Work\\python\\method\\")
+#os.chdir("c:\\Luna\\Work\\python\\method\\")
 file  = "data.xlsx"
 dataf = pd.ExcelFile(file)
 auto1 = dataf.parse(sheetname = "авто", skiprows = [0,1], parse_cols = "A:D", skip_footer = 17, names = ["left","right","weight","num"])
@@ -28,6 +28,8 @@ def calculate_data(df):
     #sum_cena = np.sum(df.cena)
     max_cena= df.right.iloc[-1]
     df["cena_relative_right"] = df.right/max_cena*100
+    df["cena_relative_left"] = df.left/max_cena*100
+    df["cena_relative_weight"] =   df["cena_relative_right"]-  df["cena_relative_left"]
     df["cena_relative"] = df.middle/max_cena*100
     sum_num = np.sum(df.num)   
     df["num_relative"] = df.num/sum_num*100
@@ -37,9 +39,11 @@ def calculate_data(df):
 _ = calculate_data(auto1)
 _ = calculate_data(auto2)
 #%%
-plt.style.use("grayscale")
+plt.style.use("seaborn-pastel")
 
 fig, ax = plt.subplots()
+
+fig.set_facecolor("w")
 
 #plt.scatter(auto1.cena_relative, auto1.num_relative, marker = "v", color="k" )
 ax.plot(auto1.cena_relative, auto1.num_relative, marker = "*", color="k" )
@@ -52,33 +56,42 @@ ax.set_ylim(0,40)
 ax.set_xticks(np.arange(101,step = 20))
 #plt.ticks_params
 
-#vals = ax.get_xticks()
-#ax.set_xticklabels(['{:3.2f}%'.format(x*100) for x in list([vals[0]])+vals[-3]])
-ax.set_xticklabels(['{:3.0f}%'.format(x) for x in np.arange(101,step = 20)])
+y_vals = ax.get_yticks()
+ax.set_yticklabels(['{:3.0f}%'.format(x) for x in y_vals])
+
+x_vals = ax.get_xticks()
+ax.set_xticklabels(['{:3.0f}%'.format(x) for x in x_vals])
 
 #ax.set_xticklabels(['' for x in vals[1:-3]])
 #plt.show()
 
-ax2 = mpl_il.inset_axes(plt.gca(), width='80%', height='80%', loc=1)
-ax2.plot(auto1.cena_relative, auto1.num_relative, marker = "*", color="k" )
+ax2 = mpl_il.inset_axes(plt.gca(), width='80%', height='80%', loc=1, borderpad = 1)
 
 ax2.plot(auto2.cena_relative, auto2.num_relative, marker = "o", color="k" )
+ax2.plot(auto1.cena_relative, auto1.num_relative, marker = "*", color="k" )
 
 
 ax2.set_xlim(0,2)
 ax2.set_ylim(0,40)
-#ax2.set_xticks(np.arange(2.1,step = 0.1 ))
-#ax2.set_xticklabels(['{:3.0f}%'.format(x) for x in np.arange(2.1,step = 0.1)])
-for l in ax2.get_xticklabels():
-    print(l)
+#bar2 = ax2.bar(left = auto2.cena_relative_left, width = auto2.cena_relative_weight, height = auto2.num_relative, color = "b")
+#bar1 = ax2.bar(left = auto1.cena_relative_left, width = auto1.cena_relative_weight, height = auto1.num_relative, alpha=0.5)
+
+
+y_vals = ax2.get_yticks()
+ax2.set_yticklabels(['{:3.0f}%'.format(x) for x in y_vals])
+
+x_vals = ax2.get_xticks()
+ax2.set_xticklabels(['{:3.1f}%'.format(x) for x in x_vals])
+
 #ax2.set_xticks([0]+auto1.cena_relative_right)
 #ax2.margins(x=0.5)
 
-mark_inset(ax,ax2,loc1 = 2, loc2 = 3, fc = "none")
+#mark_inset(ax,ax2,loc1 = 2, loc2 = 3, fc = "none")
 ax.grid(b="off",axis ="both")
+#plt.xscale("log")
 ax2.grid(b="off",axis ="both")
-
-plt.savefig("1.jpg")
+#.xscale("log")
+plt.savefig("3.jpg")
 #%%
 #plt.figure()
 #plt.bar(np.arange(10), height = np.arange(10))
