@@ -16,7 +16,7 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 #%%
 #data prepare
-os.chdir("c:\\Luna\\Work\\python\\methodology\\")
+os.chdir("c:\\Luna\\Work\\python\\method\\")
 file  = "data.xlsx"
 dataf = pd.ExcelFile(file)
 auto1 = dataf.parse(sheetname = "авто", skiprows = [0,1], parse_cols = "A:D", skip_footer = 17, names = ["left","right","weight","num"])
@@ -37,6 +37,8 @@ def calculate_data(df):
 _ = calculate_data(auto1)
 _ = calculate_data(auto2)
 #%%
+plt.style.use("grayscale")
+
 fig, ax = plt.subplots()
 
 #plt.scatter(auto1.cena_relative, auto1.num_relative, marker = "v", color="k" )
@@ -73,7 +75,10 @@ for l in ax2.get_xticklabels():
 #ax2.margins(x=0.5)
 
 mark_inset(ax,ax2,loc1 = 2, loc2 = 3, fc = "none")
-plt.show()
+ax.grid(b="off",axis ="both")
+ax2.grid(b="off",axis ="both")
+
+plt.savefig("1.jpg")
 #%%
 #plt.figure()
 #plt.bar(np.arange(10), height = np.arange(10))
