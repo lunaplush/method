@@ -39,11 +39,14 @@ def calculate_data(df):
 _ = calculate_data(auto1)
 _ = calculate_data(auto2)
 #%%
-plt.style.use("seaborn-pastel")
+#plt.style.use("seaborn-pastel")
+plt.style.use("grayscale")
+
 
 fig, ax = plt.subplots()
 
 fig.set_facecolor("w")
+fig.set_frameon(True)
 
 #plt.scatter(auto1.cena_relative, auto1.num_relative, marker = "v", color="k" )
 ax.plot(auto1.cena_relative, auto1.num_relative, marker = "*", color="k" )
@@ -68,13 +71,13 @@ ax.set_xticklabels(['{:3.0f}%'.format(x) for x in x_vals])
 ax2 = mpl_il.inset_axes(plt.gca(), width='80%', height='80%', loc=1, borderpad = 1)
 
 ax2.plot(auto2.cena_relative, auto2.num_relative, marker = "o", color="k" )
-ax2.plot(auto1.cena_relative, auto1.num_relative, marker = "*", color="k" )
+ax2.plot(auto1.cena_relative, auto1.num_relative, marker = "*", color="k" , ms =8)
 
 
 ax2.set_xlim(0,2)
 ax2.set_ylim(0,40)
-#bar2 = ax2.bar(left = auto2.cena_relative_left, width = auto2.cena_relative_weight, height = auto2.num_relative, color = "b")
-#bar1 = ax2.bar(left = auto1.cena_relative_left, width = auto1.cena_relative_weight, height = auto1.num_relative, alpha=0.5)
+bar2 = ax2.bar(left = auto2.cena_relative_left, width = auto2.cena_relative_weight, height = auto2.num_relative, color = (0.5,0.5,0.5))
+bar1 = ax2.bar(left = auto1.cena_relative_left, width = auto1.cena_relative_weight, height = auto1.num_relative,color = (0.75,0.75,0.75), alpha=0.5)
 
 
 y_vals = ax2.get_yticks()
@@ -88,10 +91,14 @@ ax2.set_xticklabels(['{:3.1f}%'.format(x) for x in x_vals])
 
 #mark_inset(ax,ax2,loc1 = 2, loc2 = 3, fc = "none")
 ax.grid(b="off",axis ="both")
+#ax.semilogx()
 #plt.xscale("log")
-ax2.grid(b="off",axis ="both")
+ax2.grid(b="on",axis ="both")
 #.xscale("log")
-plt.savefig("3.jpg")
+
+
+plt.savefig("2.jpg")
+plt.savefig("2.png")
 #%%
 #plt.figure()
 #plt.bar(np.arange(10), height = np.arange(10))
