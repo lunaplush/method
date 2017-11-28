@@ -64,7 +64,8 @@ ax.set_yticklabels(['{:3.0f}%'.format(x) for x in y_vals])
 
 x_vals = ax.get_xticks()
 ax.set_xticklabels(['{:3.0f}%'.format(x) for x in x_vals])
-
+plt.xlabel("Относительная цена автомобиля")
+plt.ylabel("Доля автомобилей с данной ценой")
 #ax.set_xticklabels(['' for x in vals[1:-3]])
 #plt.show()
 
@@ -76,6 +77,8 @@ ax2.plot(auto1.cena_relative, auto1.num_relative, marker = "*", color="k" , ms =
 
 ax2.set_xlim(0,2)
 ax2.set_ylim(0,40)
+ax2.grid(b="on",axis ="both", linestyle='dashed', linewidth = 1, color = "grey")
+
 bar2 = ax2.bar(left = auto2.cena_relative_left, width = auto2.cena_relative_weight, height = auto2.num_relative, color = (0.5,0.5,0.5))
 bar1 = ax2.bar(left = auto1.cena_relative_left, width = auto1.cena_relative_weight, height = auto1.num_relative,color = (0.75,0.75,0.75), alpha=0.5)
 
@@ -89,16 +92,16 @@ ax2.set_xticklabels(['{:3.1f}%'.format(x) for x in x_vals])
 #ax2.set_xticks([0]+auto1.cena_relative_right)
 #ax2.margins(x=0.5)
 
-#mark_inset(ax,ax2,loc1 = 2, loc2 = 3, fc = "none")
+#mark_inset(ax,ax2,loc1 = 2, loc2 = 3, fc = "none", linestyle = ":")
 ax.grid(b="off",axis ="both")
 #ax.semilogx()
 #plt.xscale("log")
-ax2.grid(b="on",axis ="both")
+
 #.xscale("log")
 
 
-plt.savefig("2.jpg")
-plt.savefig("2.png")
+plt.savefig("5.jpg")
+plt.savefig("5.png")
 #%%
 #plt.figure()
 #plt.bar(np.arange(10), height = np.arange(10))
