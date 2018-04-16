@@ -30,6 +30,8 @@ for i in range(1,4):
     X_k_1 = village['Cum_population'].shift().fillna(0).values
     Y_k = village['Cum_Income_Village_{}'.format(i)].values
     Y_k_1 = village['Cum_Income_Village_{}'.format(i)].shift().fillna(0).values
+    print(list(zip(X_k,X_k_1)))
+    print(list(zip(Y_k,Y_k_1)))    
     Gini.append(1 - np.sum((X_k - X_k_1) * (Y_k + Y_k_1)))
     plt.plot(np.insert(X_k,0,0), np.insert(village['Cum_Income_Village_{}'.format(i)].values,0,0),
              label='Деревня {} (Gini = {:0.2f})'.format(i, Gini[i-1]))
