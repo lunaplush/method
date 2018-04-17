@@ -14,7 +14,7 @@ x = np.arange(0,N+1,1)
 x = x/N
 y = np.array( [2,2,2,2,2,2,5,5,9,   13])
 y2 = np.array([1,1,1,1,1,1,1,1,13.5,13.5])
-y3 = np.array([1,1,2,3,4,4,4,5,5,   6])
+y3 = np.array([0.5,0.1,0.6,2,2.5,4.2,4,5,6,   6])
 
 
 def cum(y):
@@ -30,28 +30,17 @@ def cum(y):
 #Gini.append(1 - np.sum((X_k - X_k_1) * (Y_k + Y_k_1)))    
 
 def ginny(y):
-    y2 = np.zeros(N)
-    y_cum = cum(y)
-    y_cum = y_cum[1:]
-    for i in np.arange(1,N):
-        y2[i] = y_cum[i-1]
     
-    return 1- np.sum(0.1*(y2+y_cum))
+    h = x[1]
+    S= h*y[N]/2 + h*y[1:N].sum()
+        
     
-plt.plot(x, cum(y), label ="1, {}".format(ginny(cum(y))))
+    return (0.5-S)/0.5
+    
+plt.plot(x, cum(y), label ="1, {:.3f}".format(ginny(cum(y))))
 plt.plot(x, cum(y2),label = "1, {}".format(ginny(cum(y2))))
-plt.plot(x, cum(y3),label = "1, {}".format(ginny(cum(y3))))
+plt.plot(x, cum(y3),label = "1, {:.3f}".format(ginny(cum(y3))))
 plt.plot(x,x)   
 plt.legend(loc = 'best')
 
-#%%
-y2 = np.zeros(N)
-y_cum= cum(y)
-y_cum = y_cum[1:]
-for i in np.arange(1,N):
-   y2[i] = y_cum[i-1]
-   print(y_cum[i-1])
-   print(y2[i])
-print(list(zip(y_cum,y2)))
-a = 1- np.sum(0.1*(y2+y_cum))
     
