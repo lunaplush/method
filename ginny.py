@@ -14,7 +14,7 @@ x = np.arange(0,N+1,1)
 x = x/N
 y = np.array( [2,2,2,2,2,2,5,5,9,   13])
 y2 = np.array([1,1,1,1,1,1,1,1,13.5,13.5])
-y3 = np.array([0.5,0.1,0.6,2,2.5,4.2,4,5,6,   6])
+y3 = np.array([0.1,0.3,0.3,2.5,2.9,4.2,4,5,6,   6])
 
 
 def cum(y):
@@ -36,11 +36,23 @@ def ginny(y):
         
     
     return (0.5-S)/0.5
+
+def ginny2(x,y):
+    
+   
+    S = 0
+    for i in np.arange(len(x)-1):
+        dx = x[i+1]-x[i]
+        s = 0.5*dx*(y[i+1]-y[i])+(y[i]*dx)
+        S +=s
+       
+     
+    return (0.5-S)/0.5
     
 plt.plot(x, cum(y), label ="1, {:.3f}".format(ginny(cum(y))))
-plt.plot(x, cum(y2),label = "1, {}".format(ginny(cum(y2))))
+#plt.plot(x, cum(y2),label = "1, {}".format(ginny(cum(y2))))
 plt.plot(x, cum(y3),label = "1, {:.3f}".format(ginny(cum(y3))))
 plt.plot(x,x)   
 plt.legend(loc = 'best')
 
-    
+print("Ginny",ginny2(x, cum(y3)))    
